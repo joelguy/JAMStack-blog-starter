@@ -6,11 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/style.css">
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-{% include 'header.njk' %}  {# this is an .njk thing. Possibly other templ languages too. #}
+
+{% include 'header.njk' %}  {# this is an njk thing. Possibly other templ languages too. #}
 <main>
 {{ content | safe }} {#//This part is something to do with any and all templating languages. 
    #}</main>
+   {% include 'footer.njk' %} 
+
+   <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>
